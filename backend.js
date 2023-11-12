@@ -116,6 +116,8 @@ io.on('connection', (socket) => {
     }
   };
 
+  sendLocationUpdate();
+  
   const locationUpdateInterval = setInterval(sendLocationUpdate, 15000);
 
   socket.on('disconnect', () => {
