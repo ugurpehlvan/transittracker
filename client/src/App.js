@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { MapContainer, Marker, Popup, TileLayer, Polyline } from 'react-leaflet';
 import MarkerClusterGroup from "react-leaflet-cluster";
 import { io } from 'socket.io-client';
-import L from 'leaflet';
 
 // styles
 import './App.css';
