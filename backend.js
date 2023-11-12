@@ -4,6 +4,7 @@ const http = require('http');
 const { Server } = require("socket.io");
 const mongoose = require('mongoose');
 const cors = require('cors');
+require('dotenv').config(); 
 
 // Import route schema
 const Route = require('./models/Route');
@@ -13,6 +14,8 @@ app.use(cors());
 app.use(express.json());
 const server = http.createServer(app);
 
+const MONGO_URI = process.env.MONGO_URI;
+
 // Initialize socket.io on the server
 const io = new Server(server, {
   cors: {
@@ -20,7 +23,7 @@ const io = new Server(server, {
 }});
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://ugurpehlivan:nBUg2rUCZwL7CYbT@cluster0.08uo7kp.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect(MONGO_URI)
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
