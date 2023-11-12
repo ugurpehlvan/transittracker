@@ -59,24 +59,10 @@ function App() {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 />
-                {/* TODO: Add markers */}
-                {
-                    locations.map((location, index) => (
+                {locations.map((location, index) => (
                         <Polyline key={index} positions={location} color="blue" />
-                    ))
-                }
-                {/* <Polyline positions={routeCoordinates} color="blue" /> */}
+                ))}
                 <MarkerClusterGroup>
-                    {/* {locations.map((location, index) => (
-                        <Marker
-                            key={location.routeId}
-                            position={[ location.coordinates.lat, location.coordinates.lng ]}
-                        >
-                            <Popup>
-                                {location.name}
-                            </Popup>
-                        </Marker>
-                    ))} */}
                     <Marker
                         key={route.routeId}
                         position={[ route.coordinates.lat, route.coordinates.lng ]}
