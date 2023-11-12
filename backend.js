@@ -5,19 +5,12 @@ const { Server } = require("socket.io");
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-// Import your route schema
+// Import route schema
 const Route = require('./models/Route');
 
-// Initialize the express application
 const app = express();
-
-// Enable CORS with various options
 app.use(cors());
-
-// Body parser middleware
 app.use(express.json());
-
-// Initialize HTTP Server for Socket.IO
 const server = http.createServer(app);
 
 // Initialize socket.io on the server
@@ -64,7 +57,7 @@ const generateRoute = () => {
   return { points };
 };
 
-// Create 5 routes when the server initially starts
+// Create 5 routes each with 15 random points
 const createInitialRoutes = async () => {
   try {
     const numberOfRoutes = 5;
@@ -76,7 +69,14 @@ const createInitialRoutes = async () => {
   }
 };
 
-createInitialRoutes();
+// create routes if there are none in the database
+Route.find()
+  .then(routes => {
+    if (routes.length === 0) {
+      createInitialRoutes();
+    }
+  }
+);
 
 io.on('connection', (socket) => {
   console.log('New client connected');
@@ -92,31 +92,20 @@ io.on('connection', (socket) => {
         return;
       }
 
-      // Get the current route
       const currentRoute = routes[currentRouteIndex];
-      
-      // Get the next set of coordinates from the current route
       const nextCoordinates = currentRoute.points;
-
-      // const locationData = {
-      //   routeId: currentRoute._id, // Use the route ID from MongoDB
-      //   coordinates: nextCoordinates,
-      // };
 
       // send each coordinate one by one to the client with 1 second interval
       nextCoordinates.forEach((coordinate, index) => {
         setTimeout(() => {
           const locationData = {
-            routeId: currentRoute._id, // Use the route ID from MongoDB
+            routeId: currentRoute._id, 
             coordinates: coordinate,
           };
           socket.emit('locationUpdate', locationData);
-        }, 2000 * index);
+        }, 1000 * index);
       });
       
-
-      // socket.emit('locationUpdate', locationData);
-
       // Update the currentRouteIndex for the next iteration
       currentRouteIndex = (currentRouteIndex + 1) % routes.length;
     } catch (error) {
@@ -124,7 +113,7 @@ io.on('connection', (socket) => {
     }
   };
 
-  const locationUpdateInterval = setInterval(sendLocationUpdate, 28000);
+  const locationUpdateInterval = setInterval(sendLocationUpdate, 15000);
 
   socket.on('disconnect', () => {
     console.log('Client disconnected');
