@@ -7,15 +7,6 @@ import L from 'leaflet';
 
 // styles
 import './App.css';
-import carIconUrl from './assets/tracking.png';
-
-const carIcon = new L.Icon({
-  iconUrl: carIconUrl,
-  iconSize: [32, 32],
-  iconAnchor: [16, 16],
-  popupAnchor: [0, -16],
-});
-
 const socket = io("http://localhost:5001");
 
 function App() {
@@ -84,7 +75,7 @@ function App() {
                         <Marker
                             key={route.routeId}
                             position={[ route.coordinates.lat, route.coordinates.lng ]}
-                            icon={carIcon}
+                            // icon={carIcon}
                         >
                             <Popup>
                                 {route?.name || ''}
