@@ -67,7 +67,7 @@ function App() {
                 <MapContainer
                     className="full-height-map"
                     center={[37.3352, -121.8811]}
-                    zoom={12}
+                    zoom={11}
                     minZoom={3}
                     maxZoom={19}
                     maxBounds={[[-85.06, -180], [85.06, 180]]}
