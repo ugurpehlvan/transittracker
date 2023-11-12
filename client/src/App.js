@@ -22,9 +22,7 @@ function App() {
                         return [point.lat, point.lng]
                     })
                 });
-
                 setLocations(locs);
-                // setLocations(data);
             } catch (error) {
                 console.error('Error fetching routes:', error);
             }
