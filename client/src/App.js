@@ -44,12 +44,6 @@ function App() {
         // };
     }, []);
 
-    const routeCoordinates = [
-        [51.505, -0.09],
-        [51.51, -0.1],
-        [51.515, -0.12],
-        // Add more coordinates as needed
-      ];
     return (
         <div className="App">
             <MapContainer
